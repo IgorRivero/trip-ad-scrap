@@ -74,6 +74,7 @@ df_reviews_en['Subjectivity'] = df_reviews_en['REVIEW_en'].apply(getSubjectivity
 df_reviews_en['Polarity'] = df_reviews_en['REVIEW_en'].apply(getPolarity)
 df_reviews_en['Analysis'] = df_reviews_en['Polarity'].apply(getAnalysis)
 
+
 df_reviews_en['SCORE_Analysis'] = df_reviews_en['SCORE'].apply(getScore_analysis)
 
 # Show the new dataframe with columns 'Subjectivity' & 'Polarity'
@@ -90,44 +91,43 @@ df_reviews_en['SCORE_Analysis'] = df_reviews_en['SCORE'].apply(getScore_analysis
 #print(scaled)
 #df_reviews_en = df_reviews_en[df_reviews_en.Analysis != df_reviews_en.SCORE_Analysis] #PAY ATTENTIOOOOON
 
-df = df_reviews_en
+df = df_reviews_en.reset_index(drop=True)
 print(df) 
-#def absolute_maximum_scale(series):
-#    return series / series.abs().max()
-'''columns_to_scale = 'SCORE'
-for col in columns_to_scale:
-    df[col] = absolute_maximum_scale(df[col])
-    print(col)'''
-#df['SCORE_N'] = absolute_maximum_scale(df['SCORE'])
 
+#Definindo função para normalizar por min_max
 def min_max_scaling(series):
     return (series - series.min()) / (series.max() - series.min())
 
+#Definindo colunas para serem normalizadas
 columns_to_scale = ('SCORE','Polarity')
 for col in columns_to_scale:
     df[col] = min_max_scaling(df[col])
+#Tratando normalização da Polarity. Arredondado para duas casas decimais
 df['Polarity'] = df['Polarity'].fillna(0.5)
+df['Polarity'] = round(df['Polarity'],2)
 print(df)    
 print(df['SCORE'].max())
 #print(df['SCORE_N'].min())      
 print(df['Polarity'].max())
 
-powerbi_path ="C:/Users/paulo/projects/trip-ad-scrap/Output_scrap_reviews/to_test_on_pbi/Coco_Bambu_rank8_TRANSFORMED.csv"
+
+powerbi_path ="C:/Users/paulo/Documents/trip-ad-scrap/Output_scrap_reviews/to_test_on_pbi/Coco_Bambu_rank8_DF_n1.csv"
+csvFile = open(powerbi_path, 'a', encoding="utf-8")
 df.to_csv(powerbi_path)
 
 
-csvFile = open(powerbi_path, 'a', encoding="utf-8")
-csvWriter = csv.writer(csvFile)
+#csvFile = open(powerbi_path, 'a', encoding="utf-8")
+#csvWriter = csv.writer(csvFile)
 #csvWriter.writerows(df)
 
 
 
 value1 = df['SCORE'] 
 value2 = df['Polarity']
-#value3 = [8, 9, 10, 15, 20]
+value3 = df['SCORE'] - df['Polarity']
 
+#results1 = pd.DataFrame({'SCORE': value1, 'Polarity': value2, 'S/P':value3})
 results1 = pd.DataFrame({'SCORE': value1, 'Polarity': value2})
-
 results1.plot()
 plt.legend(loc='lower right')
 plt.xlabel("index")

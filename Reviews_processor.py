@@ -17,8 +17,6 @@ import time
 from time import sleep
 #import seaborn as sns
 #import matplotlib.pyplot as plt
-#%matplotlib inline
-#from wordcloud import WordCloud, STOPWORDS #to plot word cloud
 
 
 #READING FILES
@@ -49,25 +47,17 @@ header = ['DATE','SCORE','SUBJECT','REVIEW','REVIEW_en']
 csvWriter.writerow(header)
 for i in range(len(df_reviews)):
     df_reviews['REVIEW_en'] = df_reviews.iloc[[i]]['REVIEW'].apply(translate_)
-    #df_reviews = df_reviews.append(['REVIEW_en'], ignore_index=True)
+
     print(f"Line {i} translated")
 
     csvWriter.writerow(df_reviews.iloc[i])
-    #time.sleep(2)
-    
-    #print(df_reviews.iloc[[i]])
 
-'''#second way to save the translated review
-df_reviews['REVIEW_en'] = df_reviews['REVIEW'].apply(translate_)
-df_reviews.to_csv(path_to_file_en_full_df, encoding='utf-8', index=False)
-#df_reviews.to_csv('fileRestaurants_Review_Coco_Bambu_Iguatemi_rank1_EN.csv_name', sep='\t', encoding='utf-8')
-print(df_reviews)'''
+
+
 csvFile.close()
 
 time.sleep(2)
 
 df_reviews_en_re = pd.read_csv(path_to_file_en).head()
-#df_reviews = pd.read_csv(path_to_file_en)
+
 print(df_reviews_en_re)
-#print(len(df_reviews))
-#print(translate_('ola mundo'))

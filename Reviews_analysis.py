@@ -8,22 +8,16 @@ from google_trans_new import google_translator
 from deep_translator import GoogleTranslator
 from textblob import TextBlob
 import pandas as pd
-import csv
+
 import nltk
-nltk.download('stopwords')
-from nltk.tokenize import TweetTokenizer
-nltk.download('punkt')
 import numpy as np
 import time
 from time import sleep
 import pandas as pd
 from sklearn import preprocessing
 from sklearn.preprocessing import MaxAbsScaler
-#import seaborn as sns
 import matplotlib.pyplot as plt
 import matplotlib as mpl
-#%matplotlib inline
-#from wordcloud import WordCloud, STOPWORDS #to plot word cloud 
 
 
 #Reading a file with the reviews translated
@@ -32,8 +26,6 @@ path_splited = file_path.split('/')
 path_to_file_en ="C:/Users/paulo/Documents/projects/trip-ad-scrap/Output_scrap_reviews/Translated_Datasets/" + path_splited[-1]
 
 df_reviews_en = pd.read_csv(path_to_file_en)
-
-#df_reviews = pd.read_csv(path_to_file_en)
 
 ####################################################################################################################################
 

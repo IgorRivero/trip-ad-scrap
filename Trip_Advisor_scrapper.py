@@ -8,26 +8,16 @@ from selenium.webdriver.support import expected_conditions as EC
 path_to_file = "C:/Users/paulo/Documents/REVIEW_TRIP_ADVISOR/Restaurants_Review.csv"
 
 pages_to_scrape = 999999
-#1506
-#url = "https://www.tripadvisor.com.br/Restaurant_Review-g303293-d1098021-Reviews-Coco_Bambu_Frutos_do_Mar-Fortaleza_State_of_Ceara.html" #cocobambu rank 8
-#url = "https://www.tripadvisor.com.br/Restaurant_Review-g303293-d10150986-Reviews-or600-Vignoli_Sul_Fortaleza-Fortaleza_State_of_Ceara.html"#teste
-#url = "https://www.tripadvisor.com.br/Restaurant_Review-g303293-d21173437-Reviews-Coco_Bambu_Iguatemi_Fortaleza-Fortaleza_State_of_Ceara.html" #coco bambu iguatemi rank 1
-#url = "https://www.tripadvisor.com.br/Restaurant_Review-g303293-d14929205-Reviews-Balcone_Resto-Fortaleza_State_of_Ceara.html" #Balcone-Resto
-#url = "https://www.tripadvisor.com.br/Restaurant_Review-g303293-d1065946-Reviews-Coco_Bambu_Meireles-Fortaleza_State_of_Ceara.html" #coco bambu meireles
-#url = "https://www.tripadvisor.com.br/Restaurant_Review-g303293-d6104449-Reviews-Sabores_Organicos-Fortaleza_State_of_Ceara.html"
-#url = "https://www.tripadvisor.com.br/Restaurant_Review-g303293-d21214252-Reviews-RAIZ_Cozinha_Brasileira-Fortaleza_State_of_Ceara.html"
+
+
 # import the webdriver
-url = "https://www.tripadvisor.com.br/Restaurant_Review-g303293-d2622182-Reviews-Coco_Bambu_Sul_Restaurante-Fortaleza_State_of_Ceara.html"
-
-
+url = "https://www.tripadvisor.com.br/Restaurant_Review-g303293-d1098021-Reviews-Coco_Bambu_Frutos_do_Mar-Fortaleza_State_of_Ceara.html"
 driver = webdriver.Chrome()
 driver.get(url)
 
 time.sleep(5) 
 
 driver.find_element_by_xpath('//*[@id="onetrust-accept-btn-handler"]').click()
-
-#driver.find_element_by_xpath("//span[@class='taLnk ulBlueLinks']").click()
 
 # open the file to save the review
 csvFile = open(path_to_file, 'a', encoding="utf-8")
@@ -40,11 +30,6 @@ for i in range(0, pages_to_scrape):
     # give the DOM time to load
     time.sleep(5) 
 
- #   # Click the "expand review" link to reveal the entire review.
-   
- #   expand_review = driver.find_element_by_xpath("//span[@class='taLnk ulBlueLinks']")
- #   if len(expand_review) > 0:
- #       expand_review.click()
 
     try:
         driver.find_element_by_xpath("//span[@class='taLnk ulBlueLinks']").click()
@@ -58,9 +43,9 @@ for i in range(0, pages_to_scrape):
 
 
     # Next we'll grab the date of the review:
-    #dates = driver.find_elements_by_xpath(".//div[@class='_2fxQ4TOx']")
+    
     print(f"Page Number {i}")
-    #print(dates)
+  
    # Now we'll look at the reviews in the container and parse them out
 
     for j in range(len(container)): # A loop defined by the number of reviews
@@ -80,14 +65,9 @@ for i in range(0, pages_to_scrape):
     except:
         print(f"FINISH AT PAGE NUMBER {i}!!!")
         break
-    #elements_button = WebDriverWait(driver, 20).until(EC.visibility_of_all_elements_located((By.XPATH, "//*[@class='nav next ui_button primary']")))
-    #elements_button[0].click()
+
     
 #
 
 # When all pages have been processed, quit the driver
 driver.close()
-
-
-#<a data-page-number="2" data-offset="10" class="nav next ui_button primary" onclick="widgetEvCall('handlers.paginate', event, this); widgetEvCall('handlers.trackClick', event, this, 'pagination_next', '2');" href="/Restaurant_Review-g303293-d1098021-Reviews-or10-Coco_Bambu_Frutos_do_Mar-Fortaleza_State_of_Ceara.html">Próximas</a>
-#<a data-page-number="4" data-offset="30" class="nav next ui_button primary" onclick="widgetEvCall('handlers.paginate', event, this); widgetEvCall('handlers.trackClick', event, this, 'pagination_next', '4');" href="/Restaurant_Review-g303293-d1098021-Reviews-or30-Coco_Bambu_Frutos_do_Mar-Fortaleza_State_of_Ceara.html">Próximas</a>
